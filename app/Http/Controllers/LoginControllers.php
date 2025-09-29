@@ -12,11 +12,12 @@ class LoginControllers extends Controller
         return view('layouts.login');
     }
 
-    public function aunthenticate(Request $request)
+    public function authenticate(Request $request)
     {
-        $credentials = $request->only('email, password');
+        $credentials = $request->only('email', 'password');
+        $remember = $request->filled('remember');
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $remember)) {
             return redirect()->intended('dashboard');
         }
         return back()->withErrors([

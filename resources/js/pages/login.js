@@ -19,15 +19,33 @@ setTimeout(() => {
         }
 
         if (passwordContainer) {
-            const passwordSpan = passwordContainer.querySelector("span");
             const passwordInput = passwordContainer.querySelector("input");
+            const eyeShow = passwordContainer.querySelector("#eyeShow");
+            const eyeOff = passwordContainer.querySelector("#eyeOff");
 
-            if (passwordSpan && passwordInput) {
-                passwordSpan.addEventListener("click", function () {
-                    passwordInput.focus();
-                });
-            }
+            eyeOff.addEventListener("mousedown", function (e) {
+                e.preventDefault();
+                eyeOff.hidden = true;
+                eyeShow.hidden = false;
+                passwordInput.type = "text";
+                passwordInput.focus();
+            });
+
+            eyeShow.addEventListener("mousedown", function (e) {
+                e.preventDefault();
+                eyeShow.hidden = true;
+                eyeOff.hidden = false;
+                passwordInput.type = "password";
+                passwordInput.focus();
+            });
         }
     };
     inputFocus();
 }, 1000);
+
+const rememberLabel = document.getElementById("rememberLabel");
+const checkRemember = document.getElementById("remember");
+
+rememberLabel.addEventListener("click", function () {
+    checkRemember.checked = !checkRemember.checked;
+});
